@@ -29,6 +29,18 @@
                 from, to { opacity: 1; }
                 50% { opacity: 0; }
             }
+            .address-container {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            .address-content {
+                word-break: break-all;
+            }
+            @media (max-width: 640px) {
+                .address-content {
+                    font-size: 0.75rem;
+                }
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -49,10 +61,10 @@
                 <span>@YuXiong23</span>
             </a>
             
-            <a href="https://t.me/YuXiong23" target="_blank" rel="noopener noreferrer" 
+            <a href="https://t.me/KinBrs" target="_blank" rel="noopener noreferrer" 
                class="inline-flex items-center hover-highlight px-2 py-1 text-blue-600 hover:text-blue-800">
                 <i class="fa-brands fa-telegram mr-2"></i>
-                <span>@YuXiong23</span>
+                <span>@KinBrs</span>
             </a>
         </div>
         
@@ -67,7 +79,7 @@
                     </button>
                 </div>
                 <div class="bg-white p-3 rounded address-container">
-                    <div class="address-content text-sm font-mono" id="eth-address">
+                    <div class="address-content text-sm font-mono break-all overflow-hidden" id="eth-address">
                         0x47712606738376a84a245384a2B14ea71Fcb3e79
                     </div>
                 </div>
@@ -81,7 +93,7 @@
                     </button>
                 </div>
                 <div class="bg-white p-3 rounded address-container">
-                    <div class="address-content text-sm font-mono" id="btc-address">
+                    <div class="address-content text-sm font-mono break-all overflow-hidden" id="btc-address">
                         bc1psh2sn3y2c5w5s2u6vje5av6m5upyguc5fy7xhzskknt9ajummlsspszr4u
                     </div>
                 </div>
