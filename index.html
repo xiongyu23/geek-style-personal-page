@@ -39,23 +39,29 @@
         
         <div class="space-y-2 mb-10">
             <p class="text-lg">Crypto Trader</p>
-            <p class="text-lg">Primary & Secondary Market Investor</p>
+            <p class="text-lg">Primary Market Investor</p>
         </div>
         
-        <div class="mb-10">
+        <div class="space-y-4 mb-10">
             <a href="https://x.com/YuXiong23" target="_blank" rel="noopener noreferrer" 
                class="inline-flex items-center hover-highlight px-2 py-1 text-blue-600 hover:text-blue-800">
                 <i class="fa-brands fa-x-twitter mr-2"></i>
                 <span>@YuXiong23</span>
             </a>
+            
+            <a href="https://t.me/YuXiong23" target="_blank" rel="noopener noreferrer" 
+               class="inline-flex items-center hover-highlight px-2 py-1 text-blue-600 hover:text-blue-800">
+                <i class="fa-brands fa-telegram mr-2"></i>
+                <span>@YuXiong23</span>
+            </a>
         </div>
         
         <div class="border border-gray-200 p-6 bg-gray-50">
-            <h2 class="text-base font-bold mb-4">Secure Contact Protocol</h2>
+            <h2 class="text-base font-bold mb-4">Support & Donations</h2>
             
             <div class="mb-6">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm text-gray-600">Ethereum Address</span>
+                    <span class="text-sm text-gray-600">Ethereum</span>
                     <button onclick="copyToClipboard('eth')" class="text-xs hover-highlight px-2 py-0.5">
                         <i class="fa fa-copy"></i> copy
                     </button>
@@ -67,16 +73,22 @@
                 </div>
             </div>
             
-            <div class="text-xs text-gray-600 space-y-2">
-                <p>Communication Protocol:</p>
-                <ol class="list-decimal pl-4 space-y-1">
-                    <li>Encrypt message with PGP key: 0x4A7F8D2E</li>
-                    <li>Include encrypted string in transaction data field</li>
-                    <li>Minimum transaction: 0.1 ETH</li>
-                    <li>Smart contract validates threshold and triggers response</li>
-                    <li>Responses sent to sender address via encrypted channel</li>
-                </ol>
-                <p class="mt-2">Transactions below threshold will not be processed.</p>
+            <div class="mb-4">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm text-gray-600">Bitcoin</span>
+                    <button onclick="copyToClipboard('btc')" class="text-xs hover-highlight px-2 py-0.5">
+                        <i class="fa fa-copy"></i> copy
+                    </button>
+                </div>
+                <div class="bg-white p-3 rounded address-container">
+                    <div class="address-content text-sm font-mono" id="btc-address">
+                        bc1psh2sn3y2c5w5s2u6vje5av6m5upyguc5fy7xhzskknt9ajummlsspszr4u
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-xs text-gray-600">
+                <p>Your support is appreciated. All donations help maintain and improve the insights shared.</p>
             </div>
         </div>
         
