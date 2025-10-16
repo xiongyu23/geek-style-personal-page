@@ -70,21 +70,24 @@
         
         <div class="border border-gray-200 p-6 bg-gray-50">
             <h2 class="text-base font-bold mb-4">Support & Donations</h2>
-            
+
+            <!-- EVM unified address: ETH / USDC / USDT -->
             <div class="mb-6">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm text-gray-600">Ethereum</span>
-                    <button onclick="copyToClipboard('eth')" class="text-xs hover-highlight px-2 py-0.5">
+                    <span class="text-sm text-gray-600">EVM Address (ETH / USDC / USDT)</span>
+                    <button onclick="copyToClipboard('evm')" class="text-xs hover-highlight px-2 py-0.5">
                         <i class="fa fa-copy"></i> copy
                     </button>
                 </div>
                 <div class="bg-white p-3 rounded address-container">
-                    <div class="address-content text-sm font-mono break-all overflow-hidden" id="eth-address">
-                        0x47712606738376a84a245384a2B14ea71Fcb3e79
+                    <div class="address-content text-sm font-mono break-all overflow-hidden" id="evm-address">
+                        0x770e4a833a507c49cd7c3f559ad7fd9936966f34
                     </div>
                 </div>
+                <div class="text-xs text-gray-500 mt-1">Works on Ethereum and other EVM chains. X Layer chain id: 196.</div>
             </div>
-            
+
+            <!-- Bitcoin address -->
             <div class="mb-4">
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-sm text-gray-600">Bitcoin</span>
@@ -94,13 +97,14 @@
                 </div>
                 <div class="bg-white p-3 rounded address-container">
                     <div class="address-content text-sm font-mono break-all overflow-hidden" id="btc-address">
-                        bc1psh2sn3y2c5w5s2u6vje5av6m5upyguc5fy7xhzskknt9ajummlsspszr4u
+                        bc1p85mkasv2wwhfu8qjluewafvtxnvd7rawmruspphe359rsqhx6s9qcudext
                     </div>
                 </div>
             </div>
-            
-            <div class="text-xs text-gray-600">
+
+            <div class="text-xs text-gray-600 space-y-2">
                 <p>Your support is appreciated. All donations help maintain and improve the insights shared.</p>
+                <p>Tip: For EVM tokens (USDC/USDT), make sure to select the correct network before sending.</p>
             </div>
         </div>
         
