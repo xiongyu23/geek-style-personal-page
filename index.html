@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xiong Yu</title>
+    <title>Unique Aurora | Quantitative Trading</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <script>
@@ -13,6 +13,11 @@
                     fontFamily: {
                         mono: ['JetBrains Mono', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
                     },
+                    colors: {
+                        primary: '#165DFF',
+                        dark: '#1E293B',
+                        light: '#F8FAFC'
+                    }
                 }
             }
         }
@@ -24,6 +29,9 @@
             }
             .subtle-pattern {
                 background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z' fill='%23000000' fill-opacity='0.02' fill-rule='evenodd'/%3E%3C/svg%3E");
+            }
+            .hover-highlight {
+                @apply transition-colors duration-200 rounded hover:bg-gray-100;
             }
             @keyframes blink {
                 from, to { opacity: 1; }
@@ -43,95 +51,197 @@
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-white min-h-screen flex flex-col items-center justify-center p-6 font-mono text-gray-900 subtle-pattern">
-    <div class="max-w-2xl w-full">
-        <h1 class="text-[clamp(2.5rem,8vw,4rem)] font-bold tracking-tight mb-8">Xiong Yu</h1>
-        
-        <div class="space-y-2 mb-10">
-            <p class="text-lg">Crypto Trader</p>
-            <p class="text-lg">Primary Market Investor</p>
-        </div>
-        
-        <div class="space-y-4 mb-10">
-            <a href="https://x.com/YuXiong23" target="_blank" rel="noopener noreferrer" 
-               class="inline-flex items-center hover-highlight px-2 py-1 text-blue-600 hover:text-blue-800">
-                <i class="fa-brands fa-x-twitter mr-2"></i>
-                <span>@YuXiong23</span>
-            </a>
+<body class="bg-light min-h-screen flex flex-col items-center justify-start p-6 md:p-10 font-mono text-dark subtle-pattern">
+    <div class="max-w-3xl w-full mx-auto">
+        <!-- Navigation -->
+        <header class="mb-12 pt-4">
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-2xl font-bold">Unique Aurora LLC</h1>
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center gap-6">
+                    <a href="index.html" class="text-dark hover:text-primary font-medium transition-colors">Home</a>
+                    <a href="research.html" class="text-dark hover:text-primary font-medium transition-colors">Research</a>
+                    <a href="careers.html" class="text-dark hover:text-primary font-medium transition-colors">Careers</a>
+                    <a href="contact.html" class="text-dark hover:text-primary font-medium transition-colors">Contact</a>
+                </nav>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-dark hover:text-primary text-xl">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
             
-            <a href="https://t.me/KinBrs" target="_blank" rel="noopener noreferrer" 
-               class="inline-flex items-center hover-highlight px-2 py-1 text-blue-600 hover:text-blue-800">
-                <i class="fa-brands fa-telegram mr-2"></i>
-                <span>@KinBrs</span>
-            </a>
-        </div>
-        
-        <div class="border border-gray-200 p-6 bg-gray-50">
-            <h2 class="text-base font-bold mb-4">Support & Donations</h2>
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="md:hidden hidden mt-4 py-4 border-t">
+                <nav class="flex flex-col gap-4">
+                    <a href="index.html" class="text-dark hover:text-primary font-medium transition-colors py-2">Home</a>
+                    <a href="research.html" class="text-dark hover:text-primary font-medium transition-colors py-2">Research</a>
+                    <a href="careers.html" class="text-dark hover:text-primary font-medium transition-colors py-2">Careers</a>
+                    <a href="contact.html" class="text-dark hover:text-primary font-medium transition-colors py-2">Contact</a>
+                </nav>
+            </div>
+            
+            <!-- Hero Content -->
+            <h2 class="text-[clamp(2.5rem,8vw,4rem)] font-bold tracking-tight mb-2">Quantitative Trading</h2>
+            <div class="h-1 w-24 bg-primary mb-6"></div>
+            
+            <div class="space-y-4 mb-10 text-gray-700">
+                <p class="text-lg">Advanced Mathematical Modeling | High-Frequency Trading Systems</p>
+                <p class="max-w-2xl">Leveraging diverse mathematical insights - including dynamical systems, stochastic processes, point process theory, and computational methods - to develop state-of-the-art quantitative trading strategies for global financial markets.</p>
+            </div>
+        </header>
 
-            <!-- EVM unified address: ETH / USDC / USDT -->
-            <div class="mb-6">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm text-gray-600">EVM Address (ETH / USDC / USDT)</span>
-                    <button onclick="copyToClipboard('evm')" class="text-xs hover-highlight px-2 py-0.5">
-                        <i class="fa fa-copy"></i> copy
-                    </button>
-                </div>
-                <div class="bg-white p-3 rounded address-container">
-                    <div class="address-content text-sm font-mono break-all overflow-hidden" id="evm-address">
-                        0x770e4a833a507c49cd7c3f559ad7fd9936966f34
+        <!-- Main Content -->
+        <main class="space-y-16">
+            <!-- About Unique Aurora -->
+            <section>
+                <h2 class="text-2xl font-bold mb-6 flex items-center">
+                    <span class="inline-block w-8 mr-3 text-primary"><i class="fa-solid fa-building"></i></span>
+                    About Unique Aurora LLC
+                </h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-100 hover:border-primary/30 transition-colors">
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="font-bold text-lg mb-3">Our Mission</h3>
+                            <p class="text-gray-700 text-sm mb-4">
+                                Founded by Xiong Yu, a NYU Mathematics PhD graduate with expertise spanning dynamical systems, symbolic dynamics, and stochastic processes, Unique Aurora LLC specializes in developing sophisticated quantitative trading strategies using advanced mathematical models and high-performance computing technologies.
+                            </p>
+                            <p class="text-gray-700 text-sm">
+                                With a strong academic background and industry experience, our team combines rigorous mathematical research with cutting-edge technology to create trading systems that deliver consistent performance. We leverage diverse mathematical approaches - including point process theory, stochastic optimal control, and machine learning - to model market behaviors with unprecedented precision.
+                            </p>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 pt-4 border-t border-gray-100">
+                            <div>
+                                <h4 class="font-bold text-primary mb-2">Location</h4>
+                                <p class="text-gray-700 text-sm">New York, USA</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary mb-2">Core Philosophy</h4>
+                                <p class="text-gray-700 text-sm">Mathematical rigor + technological excellence = consistent performance</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="text-xs text-gray-500 mt-1">Works on Ethereum and other EVM chains. X Layer chain id: 196.</div>
-            </div>
+            </section>
 
-            <!-- Bitcoin address -->
-            <div class="mb-4">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm text-gray-600">Bitcoin</span>
-                    <button onclick="copyToClipboard('btc')" class="text-xs hover-highlight px-2 py-0.5">
-                        <i class="fa fa-copy"></i> copy
-                    </button>
+            <!-- Key Technologies & Approaches -->
+            <section>
+                <h2 class="text-2xl font-bold mb-6 flex items-center">
+                    <span class="inline-block w-8 mr-3 text-primary"><i class="fa-solid fa-microchip"></i></span>
+                    Advanced Modeling & Technology
+                </h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white p-5 rounded-lg border border-gray-100 hover:border-primary/30 transition-colors">
+                        <h3 class="font-bold mb-2 text-primary">Hawkes Process Modeling</h3>
+                        <p class="text-gray-700 text-sm">
+                            Specialized Hawkes process modeling for order book (LOB) dynamics and market event prediction, leveraging our expertise in point process theory and dynamical systems.
+                        </p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border border-gray-100 hover:border-primary/30 transition-colors">
+                        <h3 class="font-bold mb-2 text-primary">Low Latency Execution</h3>
+                        <p class="text-gray-700 text-sm">
+                            High-performance Rust implementation for ultra-low latency trading execution systems, optimized for nanosecond-level response times in high-frequency environments.
+                        </p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border border-gray-100 hover:border-primary/30 transition-colors">
+                        <h3 class="font-bold mb-2 text-primary">Risk Management</h3>
+                        <p class="text-gray-700 text-sm">
+                            Real-time risk monitoring and sophisticated portfolio management systems, built on stochastic control theory and dynamical systems principles.
+                        </p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border border-gray-100 hover:border-primary/30 transition-colors">
+                        <h3 class="font-bold mb-2 text-primary">Machine Learning</h3>
+                        <p class="text-gray-700 text-sm">
+                            AI-driven market prediction models and adaptive trading strategies, combining symbolic dynamics with modern deep learning architectures.
+                        </p>
+                    </div>
                 </div>
-                <div class="bg-white p-3 rounded address-container">
-                    <div class="address-content text-sm font-mono break-all overflow-hidden" id="btc-address">
-                        bc1p85mkasv2wwhfu8qjluewafvtxnvd7rawmruspphe359rsqhx6s9qcudext
+            </section>
+
+            <!-- Core Capabilities -->
+            <section>
+                <h2 class="text-2xl font-bold mb-6 flex items-center">
+                    <span class="inline-block w-8 mr-3 text-primary"><i class="fa-solid fa-cogs"></i></span>
+                    Core Capabilities
+                </h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-100 hover:border-primary/30 transition-colors">
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="space-y-2">
+                            <div class="text-primary text-xl">
+                                <i class="fa-solid fa-signal"></i>
+                            </div>
+                            <h3 class="font-bold">High-Frequency Signals</h3>
+                            <p class="text-xs text-gray-700">
+                                Advanced algorithms for real-time market signal extraction and analysis, focusing on order flow imbalance and micro-price discovery in LOB structures.
+                            </p>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="text-primary text-xl">
+                                <i class="fa-solid fa-calculator"></i>
+                            </div>
+                            <h3 class="font-bold">Quantitative Models</h3>
+                            <p class="text-xs text-gray-700">
+                                Integrated mathematical models combining point process theory, stochastic optimal control, and machine learning techniques for market prediction and strategy development.
+                            </p>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="text-primary text-xl">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
+                            <h3 class="font-bold">API Solutions</h3>
+                            <p class="text-xs text-gray-700">
+                                Robust infrastructure for signal delivery and strategy execution integration, designed for seamless integration with institutional trading platforms.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- API Access Coming Soon -->
+            <section>
+                <h2 class="text-2xl font-bold mb-6 flex items-center">
+                    <span class="inline-block w-8 mr-3 text-primary"><i class="fa-solid fa-rocket"></i></span>
+                    API Access Coming Soon
+                </h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-100 hover:border-primary/30 transition-colors">
+                    <p class="text-gray-700 text-sm mb-4">
+                        We are developing an API platform to provide access to our quantitative signals and strategy frameworks. 
+                        Our API will offer institutional clients direct access to our Hawkes process-based market signals, LOB analytics, and adaptive trading strategy modules. 
+                        Email us to learn more.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-20 pt-8 border-t border-gray-200">
+            <div class="flex flex-col gap-4">
+                <!-- Terminal prompt row -->
+                <div class="text-gray-600 text-sm w-full">
+                    <span>sudo user@unique.aurora:~$</span> <span class="terminal-cursor">_</span>
+                </div>
+                <!-- Copyright row -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 w-full">
+                    <div class="text-gray-500 text-xs">
+                        © 2025 Unique Aurora LLC | New York, USA
+                    </div>
+                    <div class="text-gray-500 text-xs">
+                        All rights reserved.
                     </div>
                 </div>
             </div>
-
-            <div class="text-xs text-gray-600 space-y-2">
-                <p>Your support is appreciated. All donations help maintain and improve the insights shared.</p>
-                <p>Tip: For EVM tokens (USDC/USDT), make sure to select the correct network before sending.</p>
-            </div>
-        </div>
-        
-        <div class="mt-10 text-base">
-            <span class="text-gray-500">user@xiongyu:~$</span> <span class="terminal-cursor">_</span>
-        </div>
+        </footer>
     </div>
 
     <script>
-        function copyToClipboard(type) {
-            const element = document.getElementById(`${type}-address`);
-            const text = element.textContent.trim();
-            
-            navigator.clipboard.writeText(text).then(() => {
-                const buttons = document.querySelectorAll('button');
-                const targetButton = Array.from(buttons).find(btn => btn.onclick.toString().includes(type));
-                const originalText = targetButton.innerHTML;
-                
-                targetButton.innerHTML = '<i class="fa fa-check"></i> copied';
-                targetButton.classList.add('text-green-700');
-                
-                setTimeout(() => {
-                    targetButton.innerHTML = originalText;
-                    targetButton.classList.remove('text-green-700');
-                }, 2000);
-            });
-        }
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
     </script>
 </body>
 </html>

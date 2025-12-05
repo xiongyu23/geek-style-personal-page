@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - Unique Aurora LLC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#165DFF',
+                        dark: '#1E293B',
+                        light: '#F8FAFC'
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .terminal-cursor {
+                animation: blink 1s step-end infinite;
+            }
+            .subtle-pattern {
+                background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z' fill='%23000000' fill-opacity='0.02' fill-rule='evenodd'/%3E%3C/svg%3E");
+            }
+            .hover-highlight {
+                @apply transition-colors duration-200 rounded hover:bg-gray-100;
+            }
+            @keyframes blink {
+                from, to { opacity: 1; }
+                50% { opacity: 0; }
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-light min-h-screen flex flex-col items-center justify-start p-6 md:p-10 font-mono text-dark subtle-pattern">
+    <div class="max-w-3xl w-full mx-auto">
+        <!-- Navigation -->
+        <header class="mb-12 pt-4">
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-2xl font-bold">Unique Aurora LLC</h1>
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center gap-6">
+                    <a href="index.html" class="text-dark hover:text-primary font-medium transition-colors">Home</a>
+                    <a href="research.html" class="text-dark hover:text-primary font-medium transition-colors">Research</a>
+                    <a href="careers.html" class="text-dark hover:text-primary font-medium transition-colors">Careers</a>
+                    <a href="contact.html" class="text-dark hover:text-primary font-medium transition-colors">Contact</a>
+                </nav>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-dark hover:text-primary text-xl">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="md:hidden hidden mt-4 py-4 border-t">
+                <nav class="flex flex-col gap-4">
+                    <a href="index.html" class="text-dark hover:text-primary font-medium transition-colors py-2">Home</a>
+                    <a href="research.html" class="text-dark hover:text-primary font-medium transition-colors py-2">Research</a>
+                    <a href="careers.html" class="text-dark hover:text-primary font-medium transition-colors py-2">Careers</a>
+                    <a href="contact.html" class="text-dark hover:text-primary font-medium transition-colors py-2">Contact</a>
+                </nav>
+            </div>
+            
+            <!-- Page Title -->
+            <h2 class="text-[clamp(2.5rem,8vw,4rem)] font-bold tracking-tight mb-2">Careers</h2>
+            <div class="h-1 w-24 bg-primary mb-6"></div>
+            
+            <div class="space-y-3 mb-8 text-gray-700">
+                <p class="max-w-2xl">Join our team of quantitative researchers and engineers building next-generation trading systems based on advanced mathematical models from dynamical systems, symbolic dynamics, point process theory, stochastic optimal control, and computational methods. We value intellectual curiosity, technical excellence, and collaborative problem-solving.</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="space-y-16">
+            <!-- Available Positions -->
+            <section>
+                <h2 class="text-2xl font-bold mb-6 flex items-center">
+                    <span class="inline-block w-8 mr-3 text-primary"><i class="fa-solid fa-user-plus"></i></span>
+                    Available Positions
+                </h2>
+                <div class="space-y-8">
+                    <div class="bg-white p-5 rounded-lg border border-gray-100 hover:border-primary/30 transition-colors">
+                        <h3 class="font-bold mb-3 text-primary">Senior Quantitative Researcher</h3>
+                        <p class="text-gray-700 text-sm mb-4">
+                            We're seeking a senior quantitative researcher with strong mathematical foundations in stochastic processes, point process theory, or related fields, and practical experience in algorithmic trading strategy development. The ideal candidate will bridge pure mathematical research with practical financial applications.
+                        </p>
+                        
+                        <div class="text-xs font-semibold text-gray-600 mb-2">Requirements:</div>
+                        <ul class="text-xs text-gray-700 list-disc list-inside space-y-1 ml-2 mb-4">
+                            <li>PhD in Mathematics, Physics, Statistics, or related quantitative field</li>
+                            <li>3+ years experience in quantitative finance or algorithmic trading</li>
+                            <li>Proficiency in Python, C++, or Rust for numerical computing and backtesting</li>
+                            <li>Deep understanding of statistical modeling, time series analysis, and point process theory</li>
+                            <li>Experience with order book dynamics modeling or high-frequency trading research</li>
+                            <li>Familiarity with Hawkes processes or other point process models is a strong plus</li>
+                            <li>Knowledge of machine learning techniques applied to financial markets is desirable</li>
+                        </ul>
+                        
+                        <div class="text-xs font-semibold text-gray-600 mb-2">Responsibilities:</div>
+                        <ul class="text-xs text-gray-700 list-disc list-inside space-y-1 ml-2">
+                            <li>Develop and validate quantitative trading strategies based on mathematical models of market dynamics</li>
+                            <li>Apply point process theory and stochastic optimal control to model order book behavior and market microstructure</li>
+                            <li>Analyze high-frequency market data to identify alpha opportunities using advanced statistical methods</li>
+                            <li>Collaborate with engineering team on strategy implementation and optimization</li>
+                            <li>Conduct rigorous backtesting and performance analysis of quantitative models</li>
+                            <li>Contribute to the development of our API platform for signal delivery</li>
+                            <li>Explore and integrate machine learning techniques into existing modeling frameworks</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white p-5 rounded-lg border border-gray-100 hover:border-primary/30 transition-colors">
+                        <h3 class="font-bold mb-3 text-primary">Rust Software Engineer (Low-Latency Systems)</h3>
+                        <p class="text-gray-700 text-sm mb-4">
+                            We need a skilled Rust engineer to build and maintain our high-performance, low-latency trading infrastructure. The ideal candidate has experience with ultra-low latency systems and understands the mathematical requirements of quantitative trading algorithms.
+                        </p>
+                        
+                        <div class="text-xs font-semibold text-gray-600 mb-2">Requirements:</div>
+                        <ul class="text-xs text-gray-700 list-disc list-inside space-y-1 ml-2 mb-4">
+                            <li>3+ years professional Rust development experience</li>
+                            <li>Experience with high-performance computing and low-latency systems (nanosecond/microsecond scale)</li>
+                            <li>Understanding of financial markets, order book mechanics, and trading systems</li>
+                            <li>Knowledge of network programming, concurrent systems, and cache-efficient algorithm design</li>
+                            <li>Familiarity with quantitative finance concepts and numerical computing</li>
+                            <li>Experience with C++ and performance optimization is a plus</li>
+                        </ul>
+                        
+                        <div class="text-xs font-semibold text-gray-600 mb-2">Responsibilities:</div>
+                        <ul class="text-xs text-gray-700 list-disc list-inside space-y-1 ml-2">
+                            <li>Develop low-latency trading execution systems in Rust</li>
+                            <li>Optimize data processing pipelines for high-frequency market data</li>
+                            <li>Implement risk management and monitoring systems with minimal latency overhead</li>
+                            <li>Collaborate with researchers to implement mathematical trading models efficiently</li>
+                            <li>Design and implement the API infrastructure for our quantitative signal platform</li>
+                            <li>Ensure system reliability and performance under extreme market conditions</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white p-5 rounded-lg border border-gray-100 hover:border-primary/30 transition-colors">
+                        <h3 class="font-bold mb-3 text-primary">Quantitative Trading Intern</h3>
+                        <p class="text-gray-700 text-sm mb-4">
+                            We offer a highly technical internship program for students interested in quantitative finance and algorithmic trading. Interns will work closely with our research team on mathematical modeling of financial markets and strategy development.
+                        </p>
+                        
+                        <div class="text-xs font-semibold text-gray-600 mb-2">Requirements:</div>
+                        <ul class="text-xs text-gray-700 list-disc list-inside space-y-1 ml-2 mb-4">
+                            <li>Currently pursuing a degree in Mathematics, Computer Science, Physics, or related quantitative field</li>
+                            <li>Strong analytical and problem-solving skills with a foundation in calculus, linear algebra, and probability</li>
+                            <li>Programming experience in Python (NumPy, Pandas, SciPy) or similar language</li>
+                            <li>Basic understanding of financial markets and trading concepts</li>
+                            <li>Interest in dynamical systems, stochastic processes, or applied mathematics</li>
+                            <li>Ability to work independently and in small teams</li>
+                        </ul>
+                        
+                        <div class="text-xs font-semibold text-gray-600 mb-2">Internship Details:</div>
+                        <ul class="text-xs text-gray-700 list-disc list-inside space-y-1 ml-2">
+                            <li>3-6 month paid internship (remote or New York-based)</li>
+                            <li>Hands-on experience with real market data and quantitative research methodologies</li>
+                            <li>Mentorship from senior researchers and engineers with PhD-level mathematical backgrounds</li>
+                            <li>Exposure to Hawkes process modeling, order book dynamics, and high-frequency trading systems</li>
+                            <li>Opportunity to contribute to our API platform development</li>
+                            <li>Opportunity for full-time position for top performers</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Our Culture -->
+            <section>
+                <h2 class="text-2xl font-bold mb-6 flex items-center">
+                    <span class="inline-block w-8 mr-3 text-primary"><i class="fa-solid fa-users"></i></span>
+                    Our Culture
+                </h2>
+                <div class="bg-white p-5 rounded-lg border border-gray-100 hover:border-primary/30 transition-colors">
+                    <div class="space-y-4">
+                        <p class="text-gray-700 text-sm">
+                            At Unique Aurora LLC, we foster a culture centered around academic rigor and technical excellence, leveraging our founder's background in mathematical research to create innovative trading solutions:
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-lightbulb text-primary mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-xs">Intellectual Curiosity</h4>
+                                    <p class="text-xs text-gray-600">Continuous learning and exploration of new mathematical methodologies for financial applications</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-code text-primary mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-xs">Technical Excellence</h4>
+                                    <p class="text-xs text-gray-600">Building robust, efficient systems with attention to mathematical correctness and performance</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-handshake text-primary mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-xs">Collaboration</h4>
+                                    <p class="text-xs text-gray-600">Small team environment with open communication between researchers and engineers</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-chart-pie text-primary mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-xs">Data-Driven</h4>
+                                    <p class="text-xs text-gray-600">Rigorous empirical validation of all mathematical models and trading strategies</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-book text-primary mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-xs">Academic Rigor</h4>
+                                    <p class="text-xs text-gray-600">Maintaining the highest standards of mathematical proof and theoretical soundness</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-rocket text-primary mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-xs">Innovation</h4>
+                                    <p class="text-xs text-gray-600">Applying cutting-edge mathematical research to real-world trading challenges</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How to Apply -->
+            <section>
+                <h2 class="text-2xl font-bold mb-6 flex items-center">
+                    <span class="inline-block w-8 mr-3 text-primary"><i class="fa-solid fa-paper-plane"></i></span>
+                    How to Apply
+                </h2>
+                <div class="bg-white p-5 rounded-lg border border-gray-100 hover:border-primary/30 transition-colors">
+                    <p class="text-gray-700 text-sm mb-4">
+                        To apply for any position, please submit your resume, cover letter, and any relevant work samples or research papers. For quantitative roles, please include a brief description of your mathematical background and any relevant research or projects.
+                    </p>
+                    
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="text-primary min-w-[40px] mt-1">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xs mb-1">Email Application</h4>
+                            <p class="text-xs text-gray-600">Send your application materials to: <a href="mailto:me@xiongyu.org" class="text-primary hover:underline">me@xiongyu.org</a></p>
+                            <p class="text-xs text-gray-600 mt-1">Please include the position title in the subject line (e.g., "Application: Senior Quantitative Researcher").</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="text-primary min-w-[40px] mt-1">
+                            <i class="fa-solid fa-file-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xs mb-1">Required Materials</h4>
+                            <p class="text-xs text-gray-600">1. Updated resume/CV</p>
+                            <p class="text-xs text-gray-600">2. Cover letter explaining your interest and qualifications</p>
+                            <p class="text-xs text-gray-600">3. Academic transcripts (for internships or junior positions)</p>
+                            <p class="text-xs text-gray-600">4. Research papers, code samples, or portfolio (if applicable)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="text-primary min-w-[40px] mt-1">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xs mb-1">Application Process</h4>
+                            <p class="text-xs text-gray-600">1. Initial screening of application materials</p>
+                            <p class="text-xs text-gray-600">2. Technical assessment (mathematical/coding problems relevant to the role)</p>
+                            <p class="text-xs text-gray-600">3. Interviews with team members (research/technical focus)</p>
+                            <p class="text-xs text-gray-600">4. On-site or remote final interview with founder (for full-time positions)</p>
+                            <p class="text-xs text-gray-600 mt-2">We aim to respond to all applications within 1-2 weeks of submission.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-20 pt-8 border-t border-gray-200">
+            <div class="flex flex-col gap-4">
+                <!-- Terminal prompt row -->
+                <div class="text-gray-600 text-sm w-full">
+                    <span>sudo hr@unique.aurora:~/careers$</span> <span class="terminal-cursor">_</span>
+                </div>
+                <!-- Copyright row -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 w-full">
+                    <div class="text-gray-500 text-xs">
+                        © 2025 Unique Aurora LLC | New York, USA
+                    </div>
+                    <div class="text-gray-500 text-xs">
+                        Equal opportunity employer | All applications kept confidential.
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
