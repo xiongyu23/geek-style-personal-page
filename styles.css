@@ -1,0 +1,893 @@
+/* ============================================
+   PROFESSIONAL HFT INTERFACE
+   Quantitative Research & Trading Terminal
+   =========================================== */
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Professional Color Palette - Bloomberg Terminal Inspired */
+    --bg-primary: #0c0c0c;
+    --bg-secondary: #141414;
+    --bg-tertiary: #1a1a1a;
+    --bg-panel: #111111;
+    
+    --text-primary: #e8e8e8;
+    --text-secondary: #888888;
+    --text-tertiary: #555555;
+    --text-muted: #444444;
+    
+    /* Functional Colors - Minimal */
+    --accent-up: #00b050;
+    --accent-down: #ff3333;
+    --accent-neutral: #ffaa00;
+    --accent-highlight: #4a9eff;
+    
+    --border-color: #2a2a2a;
+    --border-highlight: #333333;
+    
+    /* Typography */
+    --font-mono: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+    --font-sans: 'Inter', -apple-system, system-ui, sans-serif;
+    
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 12px;
+    --space-lg: 16px;
+    --space-xl: 24px;
+}
+
+/* Base */
+html {
+    font-size: 13px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: var(--font-mono);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    overflow: hidden;
+    height: 100vh;
+    line-height: 1.4;
+}
+
+/* ============================================
+   LAYOUT STRUCTURE
+   =========================================== */
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* ============================================
+   TOP BAR - SYSTEM STATUS
+   =========================================== */
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 28px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 var(--space-md);
+    font-size: 11px;
+}
+
+.top-bar-left,
+.top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.status-label {
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-value {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.status-value.active {
+    color: var(--accent-up);
+}
+
+.status-value.warning {
+    color: var(--accent-neutral);
+}
+
+.status-value.error {
+    color: var(--accent-down);
+}
+
+/* ============================================
+   MENU BAR
+   =========================================== */
+.menu-bar {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 var(--space-sm);
+}
+
+.menu-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: 0 var(--space-sm);
+    border-right: 1px solid var(--border-color);
+}
+
+.menu-group:last-child {
+    border-right: none;
+}
+
+.menu-label {
+    font-size: 10px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0 var(--space-xs);
+}
+
+.menu-item {
+    padding: 4px 10px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.1s;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.menu-item:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.menu-item.active {
+    background: var(--accent-highlight);
+    color: var(--bg-primary);
+}
+
+/* ============================================
+   MAIN WORKSPACE
+   =========================================== */
+.workspace {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-primary);
+}
+
+/* Grid Background - Subtle */
+.grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(var(--border-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* ============================================
+   PANELS - PROFESSIONAL TERMINAL STYLE
+   =========================================== */
+.panel {
+    position: absolute;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    min-width: 280px;
+    min-height: 180px;
+    display: flex; /* Default: always show */
+}
+
+.panel.active {
+    border-color: var(--accent-highlight);
+    box-shadow: 0 0 0 1px var(--accent-highlight) inset;
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 26px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 var(--space-sm);
+    cursor: grab;
+    user-select: none;
+}
+
+.panel.active .panel-header {
+    background: linear-gradient(90deg, var(--accent-highlight) 0%, transparent 100%);
+    border-bottom-color: var(--accent-highlight);
+}
+
+.panel-header:active {
+    cursor: grabbing;
+}
+
+.panel-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.panel.active .panel-title {
+    color: var(--bg-primary);
+    text-shadow: 0 0 2px var(--accent-highlight);
+}
+
+.panel-controls {
+    display: flex;
+    gap: 2px;
+}
+
+.panel-btn {
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--text-tertiary);
+    font-size: 10px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.panel-btn:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.panel-btn.close:hover {
+    background: var(--accent-down);
+    color: white;
+}
+
+.panel-content {
+    flex: 1;
+    overflow: auto;
+    padding: var(--space-md);
+}
+
+.panel-resize {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    cursor: nwse-resize;
+}
+
+.panel-resize::after {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    width: 5px;
+    height: 5px;
+    border-right: 1px solid var(--text-muted);
+    border-bottom: 1px solid var(--text-muted);
+}
+
+/* ============================================
+   PANEL CONTENT STYLES
+   =========================================== */
+
+/* Data Table - Universal */
+.data-table {
+    width: 100%;
+    font-size: 11px;
+    border-collapse: collapse;
+}
+
+.data-table th {
+    text-align: left;
+    padding: var(--space-xs) var(--space-sm);
+    color: var(--text-tertiary);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.data-table td {
+    padding: var(--space-xs) var(--space-sm);
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.data-table tr:hover td {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+/* Profile Panel */
+.profile-header {
+    display: flex;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+}
+
+.profile-avatar {
+    width: 64px;
+    height: 64px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.profile-info h1 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+}
+
+.profile-info .title {
+    font-size: 11px;
+    color: var(--accent-highlight);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.profile-info .desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.profile-section {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border-color);
+}
+
+.profile-section h3 {
+    font-size: 10px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--space-sm);
+}
+
+.profile-section p {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Skills Panel */
+.skill-bar {
+    margin-bottom: var(--space-md);
+}
+
+.skill-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-xs);
+}
+
+.skill-name {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.skill-value {
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
+
+.skill-progress {
+    height: 4px;
+    background: var(--bg-secondary);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.skill-progress-bar {
+    height: 100%;
+    background: var(--accent-highlight);
+    transition: width 0.3s;
+}
+
+/* Contact Panel */
+.contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    background: var(--bg-secondary);
+    cursor: pointer;
+    transition: background 0.1s;
+}
+
+.contact-item:hover {
+    background: var(--bg-tertiary);
+}
+
+.contact-icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-tertiary);
+    font-size: 10px;
+    color: var(--text-tertiary);
+}
+
+.contact-details {
+    flex: 1;
+}
+
+.contact-label {
+    font-size: 9px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contact-value {
+    font-size: 11px;
+    color: var(--text-primary);
+}
+
+/* Projects Panel */
+.project-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.project-item {
+    padding: var(--space-md);
+    background: var(--bg-secondary);
+    border-left: 2px solid var(--accent-highlight);
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xs);
+}
+
+.project-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.project-status {
+    font-size: 9px;
+    padding: 2px 6px;
+    background: var(--bg-tertiary);
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.project-status.active {
+    background: rgba(0, 176, 80, 0.15);
+    color: var(--accent-up);
+}
+
+.project-desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: var(--space-sm);
+}
+
+.project-tags {
+    display: flex;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+}
+
+.project-tag {
+    font-size: 9px;
+    padding: 2px 6px;
+    background: var(--bg-tertiary);
+    color: var(--text-tertiary);
+}
+
+/* Experience Panel */
+.experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.experience-item {
+    position: relative;
+    padding-left: var(--space-lg);
+    border-left: 1px solid var(--border-color);
+}
+
+.experience-item::before {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 0;
+    width: 5px;
+    height: 5px;
+    background: var(--accent-highlight);
+    border-radius: 50%;
+}
+
+.experience-company {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.experience-role {
+    font-size: 11px;
+    color: var(--accent-highlight);
+    margin-bottom: 2px;
+}
+
+.experience-period {
+    font-size: 10px;
+    color: var(--text-tertiary);
+    margin-bottom: var(--space-sm);
+}
+
+.experience-desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* Trading Panels */
+.orderbook {
+    font-size: 11px;
+}
+
+.orderbook-header {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--bg-secondary);
+    margin-bottom: var(--space-xs);
+}
+
+.orderbook-symbol {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.orderbook-spread {
+    color: var(--text-tertiary);
+}
+
+.orderbook-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 2px var(--space-sm);
+    font-family: var(--font-mono);
+}
+
+.orderbook-row:hover {
+    background: var(--bg-secondary);
+}
+
+.orderbook-row.ask {
+    color: var(--accent-down);
+}
+
+.orderbook-row.bid {
+    color: var(--accent-up);
+}
+
+.orderbook-row .price {
+    font-weight: 600;
+}
+
+.orderbook-row .size,
+.orderbook-row .total {
+    text-align: right;
+    color: var(--text-secondary);
+}
+
+/* Trades Panel */
+.trade-row {
+    display: grid;
+    grid-template-columns: 60px 50px 1fr 70px;
+    gap: var(--space-xs);
+    padding: 3px var(--space-sm);
+    font-size: 11px;
+    font-family: var(--font-mono);
+}
+
+.trade-row:hover {
+    background: var(--bg-secondary);
+}
+
+.trade-time {
+    color: var(--text-tertiary);
+}
+
+.trade-side {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.trade-side.buy {
+    color: var(--accent-up);
+}
+
+.trade-side.sell {
+    color: var(--accent-down);
+}
+
+.trade-price {
+    text-align: right;
+    color: var(--text-primary);
+}
+
+.trade-size {
+    text-align: right;
+    color: var(--text-secondary);
+}
+
+/* Latency Panel */
+.latency-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+}
+
+.latency-item {
+    padding: var(--space-md);
+    background: var(--bg-secondary);
+    text-align: center;
+}
+
+.latency-label {
+    font-size: 10px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--space-xs);
+}
+
+.latency-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+}
+
+.latency-value.good {
+    color: var(--accent-up);
+}
+
+.latency-value.medium {
+    color: var(--accent-neutral);
+}
+
+.latency-value.bad {
+    color: var(--accent-down);
+}
+
+/* Strategy Panel */
+.strategy-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--bg-secondary);
+    margin-bottom: var(--space-xs);
+}
+
+.strategy-name {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.strategy-status {
+    font-size: 9px;
+    padding: 2px 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.strategy-status.running {
+    background: rgba(0, 176, 80, 0.15);
+    color: var(--accent-up);
+}
+
+.strategy-status.stopped {
+    background: rgba(255, 51, 51, 0.15);
+    color: var(--accent-down);
+}
+
+.strategy-status.paused {
+    background: rgba(255, 170, 0, 0.15);
+    color: var(--accent-neutral);
+}
+
+/* Performance Panel */
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+}
+
+.metric-item {
+    padding: var(--space-md);
+    background: var(--bg-secondary);
+    text-align: center;
+}
+
+.metric-label {
+    font-size: 10px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--space-xs);
+}
+
+.metric-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+}
+
+/* Terminal Panel */
+.terminal {
+    background: var(--bg-primary);
+    font-family: var(--font-mono);
+    font-size: 12px;
+}
+
+.terminal-output {
+    height: 200px;
+    overflow-y: auto;
+    padding: var(--space-sm);
+    color: var(--text-secondary);
+}
+
+.terminal-line {
+    margin-bottom: 2px;
+    line-height: 1.4;
+}
+
+.terminal-line.prompt {
+    color: var(--accent-highlight);
+}
+
+.terminal-line.output {
+    color: var(--text-secondary);
+}
+
+.terminal-line.error {
+    color: var(--accent-down);
+}
+
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm);
+    border-top: 1px solid var(--border-color);
+}
+
+.terminal-prompt {
+    color: var(--accent-highlight);
+}
+
+.terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 12px;
+}
+
+/* ============================================
+   CONTEXT MENU
+   =========================================== */
+.context-menu {
+    position: fixed;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    min-width: 160px;
+    z-index: 10000;
+    font-size: 11px;
+}
+
+.context-item {
+    padding: var(--space-sm) var(--space-md);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background 0.1s;
+}
+
+.context-item:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.context-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: var(--space-xs) 0;
+}
+
+/* ============================================
+   SCROLLBARS
+   =========================================== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--border-highlight);
+}
+
+/* ============================================
+   SELECTION
+   =========================================== */
+::selection {
+    background: var(--accent-highlight);
+    color: var(--bg-primary);
+}
