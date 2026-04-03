@@ -38,7 +38,7 @@ class RenderEngine {
                     <h1>${profile.name}</h1>
                     <div class="title">${profile.title}</div>
                     <div class="desc">${profile.credentials}</div>
-                                        ${profile.availability ? `
+                    ${profile.availability ? `
                     <div class="availability">${profile.availability}</div>
                     ` : ''}
                 </div>
@@ -634,6 +634,11 @@ class PanelManager {
         this.registerPanel(panel);
         this.focusPanel(panel);
         
+        // Re-initialize terminal events after panel creation
+        if (config.id === 'terminal') {
+            window.app?.initTerminal();
+        }
+        
         return panel;
     }
     
@@ -643,6 +648,12 @@ class PanelManager {
         if (existing) {
             existing.style.display = 'flex';
             this.focusPanel(existing);
+            
+            // Re-initialize terminal events if terminal panel
+            if (panelId === 'terminal') {
+                window.app?.initTerminal();
+            }
+            
             return existing;
         }
         
@@ -779,12 +790,12 @@ class TradingFeed {
     
     start() {
         this.running = true;
-        this.updateOrderBook();
         this.fetchRealData();
+        this.updateOrderBook();
         this.updateTrades();
         this.updateLatency();
     }
-        
+    
     // Fetch real trading data from API
     async fetchRealData() {
         try {
@@ -849,14 +860,14 @@ class TradingFeed {
                 </div>
             `).join('');
         }
-      
+        
         // Update spread
         const spreadEl = document.querySelector('.orderbook-spread');
         if (spreadEl && this.orderBook.asks.length > 0 && this.orderBook.bids.length > 0) {
             const spread = (this.orderBook.asks[0].price - this.orderBook.bids[0].price).toFixed(2);
             spreadEl.textContent = spread;
         }
-
+        
         setTimeout(() => this.updateOrderBook(), 500);
     }
     
@@ -1129,7 +1140,7 @@ ${info.map(i => `  ${i}`).join('\n')}`
   Touch: ${touch ? 'Yes' : 'No'}`
         };
     }
-        
+    
     trading() {
         const symbol = this.data.trading?.symbol || 'BTC-PERP';
         return {
@@ -1215,13 +1226,19 @@ class App {
     }
     
     initTerminal() {
+        // Remove existing event listeners to avoid duplicates
         document.querySelectorAll('.terminal-input').forEach(input => {
-            input.addEventListener('keydown', (e) => {
+            // Remove any existing event listeners
+            const newInput = input.cloneNode(true);
+            input.parentNode.replaceChild(newInput, input);
+            
+            // Add new event listener
+            newInput.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
-                    const command = input.value;
-                    input.value = '';
+                    const command = newInput.value;
+                    newInput.value = '';
                     
-                    const output = input.closest('.terminal').querySelector('.terminal-output');
+                    const output = newInput.closest('.terminal').querySelector('.terminal-output');
                     if (output) {
                         // Add command line
                         const cmdLine = document.createElement('div');
