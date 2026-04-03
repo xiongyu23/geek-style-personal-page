@@ -126,6 +126,8 @@ body {
     background: var(--bg-secondary);
     border-bottom: 1px solid var(--border-color);
     padding: 0 var(--space-sm);
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .menu-group {
@@ -890,4 +892,161 @@ body {
 ::selection {
     background: var(--accent-highlight);
     color: var(--bg-primary);
+}
+
+/* ============================================
+   MOBILE RESPONSIVENESS
+   =========================================== */
+@media (max-width: 768px) {
+    html {
+        font-size: 11px;
+    }
+    
+    .top-bar {
+        height: 24px;
+        padding: 0 var(--space-sm);
+        font-size: 10px;
+    }
+    
+    .top-bar-left,
+    .top-bar-right {
+        gap: var(--space-md);
+    }
+    
+    .status-item {
+        gap: 2px;
+    }
+    
+    .status-label {
+        display: none;
+    }
+    
+    .menu-bar {
+        height: 28px;
+        padding: 0 var(--space-xs);
+    }
+    
+    .menu-group {
+        padding: 0 var(--space-xs);
+    }
+    
+    .menu-label {
+        display: none;
+    }
+    
+    .menu-item {
+        padding: 3px 8px;
+        font-size: 10px;
+    }
+    
+    .panel {
+        min-width: 240px;
+        min-height: 160px;
+    }
+    
+    .panel-header {
+        height: 24px;
+        padding: 0 var(--space-xs);
+    }
+    
+    .panel-title {
+        font-size: 10px;
+    }
+    
+    .panel-content {
+        padding: var(--space-sm);
+    }
+    
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--space-md);
+    }
+    
+    .profile-avatar {
+        width: 56px;
+        height: 56px;
+        font-size: 20px;
+    }
+    
+    .profile-info h1 {
+        font-size: 14px;
+    }
+    
+    .skill-header {
+        font-size: 10px;
+    }
+    
+    .orderbook-row {
+        font-size: 10px;
+    }
+    
+    .trade-row {
+        font-size: 10px;
+        grid-template-columns: 50px 40px 1fr 60px;
+    }
+    
+    .latency-grid,
+    .metric-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .terminal {
+        font-size: 11px;
+    }
+    
+    .terminal-output {
+        height: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    .panel {
+        min-width: 200px;
+        min-height: 140px;
+    }
+    
+    .profile-info h1 {
+        font-size: 12px;
+    }
+    
+    .project-name {
+        font-size: 11px;
+    }
+    
+    .experience-company {
+        font-size: 11px;
+    }
+}
+
+/* ============================================
+   TOUCH SUPPORT
+   =========================================== */
+@media (hover: none) and (pointer: coarse) {
+    .panel-header {
+        cursor: default;
+    }
+    
+    .panel-header:active {
+        cursor: default;
+    }
+    
+    .panel-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+    }
+    
+    .menu-item {
+        padding: 6px 12px;
+    }
+    
+    .contact-item {
+        padding: var(--space-md);
+    }
+    
+    .terminal-input {
+        font-size: 14px;
+    }
 }

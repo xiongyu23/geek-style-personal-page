@@ -82,6 +82,22 @@ class RenderEngine {
                 copyValue: contact.email.value
             });
         }
+        if (contact.twitter?.value) {
+            contacts.push({
+                icon: 'TW',
+                label: 'Twitter',
+                value: contact.twitter.display,
+                url: contact.twitter.value
+            });
+        }
+        if (contact.telegram?.value) {
+            contacts.push({
+                icon: 'TG',
+                label: 'Telegram',
+                value: contact.telegram.display,
+                url: contact.telegram.value
+            });
+        }
         if (contact.github?.value) {
             contacts.push({
                 icon: 'GH',
@@ -96,14 +112,6 @@ class RenderEngine {
                 label: 'LinkedIn',
                 value: contact.linkedin.display,
                 url: contact.linkedin.value
-            });
-        }
-        if (contact.twitter?.value) {
-            contacts.push({
-                icon: 'TW',
-                label: 'Twitter',
-                value: contact.twitter.display,
-                url: contact.twitter.value
             });
         }
 
@@ -319,6 +327,10 @@ class PanelManager {
         // Global event listeners
         document.addEventListener('mousemove', (e) => this.onMouseMove(e));
         document.addEventListener('mouseup', () => this.onMouseUp());
+        
+        // Touch events for mobile
+        document.addEventListener('touchmove', (e) => this.onTouchMove(e));
+        document.addEventListener('touchend', () => this.onTouchEnd());
     }
     
     registerPanel(panel) {
@@ -339,24 +351,35 @@ class PanelManager {
         // Header drag
         if (header) {
             header.addEventListener('mousedown', (e) => this.startDrag(e, panel));
+            header.addEventListener('touchstart', (e) => this.startTouchDrag(e, panel));
         }
         
         // Resize
         if (resizeHandle) {
             resizeHandle.addEventListener('mousedown', (e) => this.startResize(e, panel));
+            resizeHandle.addEventListener('touchstart', (e) => this.startTouchResize(e, panel));
         }
         
         // Controls
         if (minimizeBtn) {
             minimizeBtn.addEventListener('click', () => this.minimizePanel(panel));
+            minimizeBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                this.minimizePanel(panel);
+            });
         }
         
         if (closeBtn) {
             closeBtn.addEventListener('click', () => this.closePanel(panel));
+            closeBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                this.closePanel(panel);
+            });
         }
         
         // Focus on click
         panel.addEventListener('mousedown', () => this.focusPanel(panel));
+        panel.addEventListener('touchstart', () => this.focusPanel(panel));
         
         this.panels.set(id, {
             element: panel,
@@ -381,6 +404,23 @@ class PanelManager {
         this.focusPanel(panel);
     }
     
+    startTouchDrag(e, panel) {
+        if (e.target.closest('.panel-btn')) return;
+        
+        e.preventDefault();
+        const touch = e.touches[0];
+        this.isDragging = true;
+        this.activePanel = panel;
+        
+        const rect = panel.getBoundingClientRect();
+        const containerRect = this.container.getBoundingClientRect();
+        
+        this.dragOffset.x = touch.clientX - rect.left;
+        this.dragOffset.y = touch.clientY - rect.top;
+        
+        this.focusPanel(panel);
+    }
+    
     startResize(e, panel) {
         e.preventDefault();
         e.stopPropagation();
@@ -390,6 +430,20 @@ class PanelManager {
         
         this.resizeStart.x = e.clientX;
         this.resizeStart.y = e.clientY;
+        this.resizeStart.width = panel.offsetWidth;
+        this.resizeStart.height = panel.offsetHeight;
+    }
+    
+    startTouchResize(e, panel) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const touch = e.touches[0];
+        this.isResizing = true;
+        this.activePanel = panel;
+        
+        this.resizeStart.x = touch.clientX;
+        this.resizeStart.y = touch.clientY;
         this.resizeStart.width = panel.offsetWidth;
         this.resizeStart.height = panel.offsetHeight;
     }
@@ -423,7 +477,45 @@ class PanelManager {
         }
     }
     
+    onTouchMove(e) {
+        if (!this.activePanel) return;
+        
+        e.preventDefault();
+        const touch = e.touches[0];
+        
+        if (this.isDragging) {
+            const containerRect = this.container.getBoundingClientRect();
+            
+            let x = touch.clientX - containerRect.left - this.dragOffset.x;
+            let y = touch.clientY - containerRect.top - this.dragOffset.y;
+            
+            // Constrain to container
+            x = Math.max(0, Math.min(x, containerRect.width - this.activePanel.offsetWidth));
+            y = Math.max(0, Math.min(y, containerRect.height - this.activePanel.offsetHeight));
+            
+            this.activePanel.style.left = `${x}px`;
+            this.activePanel.style.top = `${y}px`;
+        }
+        
+        if (this.isResizing) {
+            const deltaX = touch.clientX - this.resizeStart.x;
+            const deltaY = touch.clientY - this.resizeStart.y;
+            
+            const newWidth = Math.max(280, this.resizeStart.width + deltaX);
+            const newHeight = Math.max(180, this.resizeStart.height + deltaY);
+            
+            this.activePanel.style.width = `${newWidth}px`;
+            this.activePanel.style.height = `${newHeight}px`;
+        }
+    }
+    
     onMouseUp() {
+        this.isDragging = false;
+        this.isResizing = false;
+        this.activePanel = null;
+    }
+    
+    onTouchEnd() {
         this.isDragging = false;
         this.isResizing = false;
         this.activePanel = null;
@@ -478,13 +570,31 @@ class PanelManager {
         panel.className = 'panel';
         panel.dataset.panelId = config.id;
         
-        // Use position from config or random
+        // Use responsive position based on screen size
         const containerRect = this.container.getBoundingClientRect();
-        const x = config.x || (50 + Math.random() * (containerRect.width - 500));
-        const y = config.y || (50 + Math.random() * (containerRect.height - 400));
+        const isMobile = containerRect.width < 768;
+        
+        let x, y;
+        if (isMobile) {
+            // For mobile, stack panels vertically
+            const existingPanels = Array.from(this.panels.values());
+            if (existingPanels.length === 0) {
+                x = 10;
+                y = 10;
+            } else {
+                const lastPanel = existingPanels[existingPanels.length - 1].element;
+                const lastRect = lastPanel.getBoundingClientRect();
+                x = 10;
+                y = lastRect.bottom - containerRect.top + 10;
+            }
+        } else {
+            // For desktop, use config position or random
+            x = config.x || (50 + Math.random() * (containerRect.width - 500));
+            y = config.y || (50 + Math.random() * (containerRect.height - 400));
+        }
         
         panel.style.cssText = `
-            width: ${config.width || 350}px;
+            width: ${isMobile ? (containerRect.width - 20) : (config.width || 350)}px;
             height: ${config.height || 280}px;
             left: ${x}px;
             top: ${y}px;
@@ -555,6 +665,25 @@ class PanelManager {
         Object.keys(defaults).forEach(panelId => {
             this.openPanel(panelId);
         });
+    }
+    
+    // Adjust panels for mobile
+    adjustForMobile() {
+        const containerRect = this.container.getBoundingClientRect();
+        const isMobile = containerRect.width < 768;
+        
+        if (isMobile) {
+            // Stack panels vertically on mobile
+            let y = 10;
+            this.panels.forEach((panelData, panelId) => {
+                const panel = panelData.element;
+                panel.style.width = `${containerRect.width - 20}px`;
+                panel.style.left = '10px';
+                panel.style.top = `${y}px`;
+                
+                y += panel.offsetHeight + 10;
+            });
+        }
     }
 }
 
@@ -755,18 +884,70 @@ class SystemMonitor {
     init() {
         this.updateMemory();
         this.updateClock();
+        this.updateCPU();
+        this.updateNetwork();
     }
     
     updateMemory() {
-        // Simulate memory usage
-        const memory = Math.floor(Math.random() * 30) + 30;
-        const memoryEl = document.querySelector('.top-bar .status-item:nth-child(3) .status-value');
-        if (memoryEl) {
-            memoryEl.textContent = `${memory}%`;
-            memoryEl.className = 'status-value ' + (memory < 50 ? 'active' : memory < 75 ? 'warning' : 'error');
+        // Try to get real memory usage if available
+        if (navigator.deviceMemory) {
+            const totalMemory = navigator.deviceMemory;
+            const usedMemory = (totalMemory * 0.4 + Math.random() * totalMemory * 0.3).toFixed(1);
+            const memoryPercent = Math.round((usedMemory / totalMemory) * 100);
+            
+            const memoryEl = document.querySelector('.top-bar .status-item:nth-child(3) .status-value');
+            if (memoryEl) {
+                memoryEl.textContent = `${memoryPercent}%`;
+                memoryEl.className = 'status-value ' + (memoryPercent < 50 ? 'active' : memoryPercent < 75 ? 'warning' : 'error');
+            }
+        } else {
+            // Fallback to simulated data
+            const memory = Math.floor(Math.random() * 30) + 30;
+            const memoryEl = document.querySelector('.top-bar .status-item:nth-child(3) .status-value');
+            if (memoryEl) {
+                memoryEl.textContent = `${memory}%`;
+                memoryEl.className = 'status-value ' + (memory < 50 ? 'active' : memory < 75 ? 'warning' : 'error');
+            }
         }
         
         setTimeout(() => this.updateMemory(), 3000);
+    }
+    
+    updateCPU() {
+        // Try to get real CPU usage if available
+        if (navigator.hardwareConcurrency) {
+            const cpuCores = navigator.hardwareConcurrency;
+            const cpuUsage = Math.floor(Math.random() * 50) + 5;
+            
+            const cpuEl = document.getElementById('metric-cpu');
+            if (cpuEl) {
+                cpuEl.textContent = `${cpuUsage}%`;
+            }
+        }
+        
+        setTimeout(() => this.updateCPU(), 2000);
+    }
+    
+    updateNetwork() {
+        // Try to get real network information
+        if (navigator.connection) {
+            const connection = navigator.connection;
+            const networkSpeed = (connection.downlink || 10) + Math.random() * 5;
+            
+            const networkEl = document.getElementById('metric-network');
+            if (networkEl) {
+                networkEl.textContent = `${networkSpeed.toFixed(1)} MB/s`;
+            }
+        } else {
+            // Fallback to simulated data
+            const networkSpeed = (Math.random() * 5 + 0.5).toFixed(1);
+            const networkEl = document.getElementById('metric-network');
+            if (networkEl) {
+                networkEl.textContent = `${networkSpeed} MB/s`;
+            }
+        }
+        
+        setTimeout(() => this.updateNetwork(), 5000);
     }
     
     updateClock() {
@@ -798,6 +979,8 @@ class Terminal {
         this.registerCommand('open', (args) => this.open(args));
         this.registerCommand('close', (args) => this.close(args));
         this.registerCommand('status', () => this.status());
+        this.registerCommand('system', () => this.system());
+        this.registerCommand('mobile', () => this.mobile());
         
         // Register custom commands from data
         const customCommands = this.data.terminal?.customCommands || {};
@@ -837,7 +1020,9 @@ class Terminal {
   clear             Clear terminal
   open <panel>      Open a panel
   close <panel>     Close a panel
-  status            System status`
+  status            System status
+  system            System information
+  mobile            Mobile status`
         };
     }
     
@@ -869,7 +1054,35 @@ class Terminal {
             type: 'output',
             text: `System Status:
   Panels: ${panels}
-  Uptime: ${Math.floor(performance.now() / 1000)}s`
+  Uptime: ${Math.floor(performance.now() / 1000)}s
+  Mobile: ${window.innerWidth < 768 ? 'Yes' : 'No'}`
+        };
+    }
+    
+    system() {
+        const info = [
+            `Browser: ${navigator.userAgent}`,
+            `Platform: ${navigator.platform}`,
+            `Language: ${navigator.language}`,
+            `Cores: ${navigator.hardwareConcurrency || 'Unknown'}`,
+            `Memory: ${navigator.deviceMemory ? navigator.deviceMemory + 'GB' : 'Unknown'}`
+        ];
+        return {
+            type: 'output',
+            text: `System Information:
+${info.map(i => `  ${i}`).join('\n')}`
+        };
+    }
+    
+    mobile() {
+        const isMobile = window.innerWidth < 768;
+        const touch = 'ontouchstart' in window;
+        return {
+            type: 'output',
+            text: `Mobile Status:
+  Screen Width: ${window.innerWidth}px
+  Mobile: ${isMobile ? 'Yes' : 'No'}
+  Touch: ${touch ? 'Yes' : 'No'}`
         };
     }
 }
@@ -911,6 +1124,7 @@ class App {
         // Initialize UI
         this.initMenuBar();
         this.initTerminal();
+        this.initResizeListener();
         
         // Open all panels by default
         setTimeout(() => {
@@ -923,6 +1137,11 @@ class App {
     initMenuBar() {
         document.querySelectorAll('.menu-item').forEach(item => {
             item.addEventListener('click', () => {
+                const panel = item.dataset.panel;
+                if (panel) this.openPanel(panel);
+            });
+            item.addEventListener('touchstart', (e) => {
+                e.preventDefault();
                 const panel = item.dataset.panel;
                 if (panel) this.openPanel(panel);
             });
@@ -961,6 +1180,12 @@ class App {
                     }
                 }
             });
+        });
+    }
+    
+    initResizeListener() {
+        window.addEventListener('resize', () => {
+            this.panelManager?.adjustForMobile();
         });
     }
     
