@@ -11,23 +11,29 @@ const PERSONAL_DATA = {
         name: "Xiong Yu",
         initials: "XY",
         title: "Quantitative Researcher & HFT Developer",
-        credentials: "PhD Mathematics | Rust Expert | Systems Engineer | HFT Market Maker",
+        credentials: "Quantitative Researcher | Rust Expert | Systems Engineer | HFT Market Maker",
         about: "Expert in high-frequency trading systems and low-latency optimization. Specializes in Rust systems programming, kernel bypass networking, and algorithmic trading strategies.",
-        
+                
         // Detailed biography
         biography: `
-            As a seasoned quantitative researcher and systems engineer, I have dedicated my career to building ultra-low latency trading systems and high-performance software. My expertise spans from operating system development to high-frequency trading infrastructure, with a deep focus on Rust programming and kernel bypass networking.
-            
-            With over 8 years of experience in the financial technology sector, I have designed and implemented complete HFT market making systems, including custom network stacks, real-time risk management, and execution engines. My work has consistently delivered sub-microsecond latency improvements and significant performance gains.
-            
-            Beyond trading systems, I am passionate about open-source development and have contributed to various projects in the Rust ecosystem. I believe in the power of systems programming to solve complex performance challenges and drive innovation in financial markets.
+            As a quantitative researcher and systems engineer, I specialize in building ultra-low latency trading systems and high-performance software infrastructure. My expertise spans from operating system development to high-frequency trading, with a deep focus on Rust systems programming and kernel bypass networking.
+
+            My academic background in mathematics and financial mathematics has provided me with a strong foundation in stochastic dynamics, market microstructure, and algorithm design. During my studies, I focused on the mathematical foundations of order book dynamics, developing novel approaches to order execution and market making.
+
+            With over 4 years of experience in the financial technology sector, I have designed and implemented complete HFT market making systems, including custom network stacks, real-time risk management, and execution engines. My work has consistently delivered sub-microsecond latency improvements and significant performance gains.
+
+            I am particularly recognized for my expertise in Rust programming, having developed custom operating systems and complete HFT infrastructure using this language. 
+
+            Beyond technical expertise, I have led engineering teams in developing next-generation trading infrastructure, mentoring junior engineers and driving technical innovation. I am passionate about bridging the gap between theoretical quantitative models and practical, high-performance implementation.
+
+            My research interests include market microstructure, and order book dynamics. I continue to explore new approaches to reduce latency, improve execution quality, and develop more efficient trading systems.
         `,
         
         // Location
         location: {
-            city: "New York",
-            country: "USA",
-            timezone: "EST"
+            city: "New York/ShenZhen",
+            country: "USA/China",
+            timezone: "EST/PST"
         },
         
         // Availability status
@@ -48,8 +54,8 @@ const PERSONAL_DATA = {
         { name: "Rust", level: 95, category: "languages" },
         { name: "C/C++", level: 90, category: "languages" },
         { name: "Python", level: 85, category: "languages" },
-        { name: "Go", level: 80, category: "languages" },
-        { name: "TypeScript", level: 75, category: "languages" },
+        { name: "Go", level: 90, category: "languages" },
+        { name: "TypeScript", level: 95, category: "languages" },
         { name: "Kernel Bypass", level: 92, category: "systems" },
         { name: "DPDK", level: 88, category: "systems" },
         { name: "HFT Systems", level: 95, category: "quant" },
@@ -116,9 +122,10 @@ const PERSONAL_DATA = {
             id: "quant-strategies",
             name: "Quantitative Strategies",
             status: "active",
-            description: "Collection of algorithmic trading strategies including statistical arbitrage, mean reversion, and trend following.",
+            description: "Collection of algorithmic trading strategies including market neutral, statistical arbitrage, mean reversion, and trend following.",
             tags: ["Python", "Rust", "Quantitative Finance", "Trading Strategies"],
             highlights: [
+                "Market neutral strategies",
                 "Statistical arbitrage models",
                 "Mean reversion strategies",
                 "Machine learning integration"
@@ -143,41 +150,29 @@ const PERSONAL_DATA = {
     // ============================================
     experience: [
         {
-            company: "Quantitative Trading Firm",
-            role: "Lead Systems Engineer",
-            period: "2022 - Present",
+            company: "Private Investment Fund",
+            role: "Founder/Quantitative Developer",
+            period: "2024 - Present",
             location: "New York, NY",
             description: "Lead the development of ultra-low latency trading systems and infrastructure. Responsible for system architecture, performance optimization, and team leadership.",
             achievements: [
-                "Reduced trading latency by 60% through kernel bypass implementation",
                 "Designed and implemented complete HFT market making system",
-                "Led team of 5 engineers in developing next-generation trading infrastructure"
-            ],
-            technologies: ["Rust", "C++", "DPDK", "Kernel Bypass", "Linux"]
-        },
-        {
-            company: "Hedge Fund",
-            role: "Quantitative Developer",
-            period: "2020 - 2022",
-            location: "Chicago, IL",
-            description: "Developed algorithmic trading strategies and execution systems. Focus on performance optimization and risk management.",
-            achievements: [
-                "Implemented real-time risk monitoring system",
+                "Developed market neutral strategies",
                 "Developed statistical arbitrage strategies with Sharpe ratio > 2.5",
                 "Optimized order execution algorithms"
             ],
-            technologies: ["Python", "C++", "Rust", "CUDA"]
+            technologies: ["Rust", "C++", "Go", "Python", "DPDK", "Kernel Bypass", "Linux"]
         },
         {
-            company: "Technology Startup",
-            role: "Systems Programmer",
-            period: "2018 - 2020",
-            location: "San Francisco, CA",
-            description: "Worked on high-performance distributed systems and real-time data processing pipelines.",
+            company: "A Lapidary Company",
+            role: "Data Scientist/Project Manager",
+            period: "2023 - 2025",
+            location: "New York, NY/ShenZhen, CN",
+            description: "Worked on high-performance and real-time live stream processing systems with order creation and execution.",
             achievements: [
                 "Built scalable microservices architecture",
                 "Implemented real-time stream processing system",
-                "Optimized system performance by 5x"
+                "Optimized system performance by 25.6x"
             ],
             technologies: ["Go", "Rust", "Kafka", "Cassandra"]
         }
@@ -190,23 +185,22 @@ const PERSONAL_DATA = {
         {
             institution: "The Graduate Center, City University of New York",
             degree: "PhD in Mathematics",
-            field: "Applied Mathematics / Financial Mathematics",
-            period: "2018 - 2023",
+            field: "Dynamic Systems/Ergodic Theory",
+            period: "2023 - On Leave",
             highlights: [
-                "Dissertation: 'Low-Latency Trading Systems: Mathematical Foundations and Implementation'",
-                "Focus on stochastic calculus and market microstructure",
-                "Teaching Assistant for Advanced Calculus and Linear Algebra"
+                "Focus on market microstructure with its dynamics and behavior, and high-frequency trading systems",
+                "Teaching Assistant for Advanced Calculus, Physics, and Linear Algebra"
             ]
         },
         {
             institution: "University of Portland",
             degree: "Bachelor of Science",
             field: "Mathematics",
-            period: "2014 - 2018",
+            period: "2018 - 2022",
             highlights: [
-                "GPA: 3.9/4.0",
-                "Specialization in Applied Mathematics",
-                "Relevant coursework: Algorithms, Data Structures, Computer Systems"
+                "GPA: 3.82/4.0",
+                "Specialization in Fluid Mechanics/Complex Dynamics",
+                "Relevant coursework: Algorithms, Data Structures, Computer Systems, PDE, Functional Analysis, Stochastic Calculus"
             ]
         }
     ],

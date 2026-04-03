@@ -38,6 +38,9 @@ class RenderEngine {
                     <h1>${profile.name}</h1>
                     <div class="title">${profile.title}</div>
                     <div class="desc">${profile.credentials}</div>
+                                        ${profile.availability ? `
+                    <div class="availability">${profile.availability}</div>
+                    ` : ''}
                 </div>
             </div>
             <div class="profile-section">
@@ -258,6 +261,13 @@ class RenderEngine {
         `;
     }
 
+    // Render trades panel
+    renderTrades(container) {
+        container.innerHTML = `
+            <div id="trades-list"></div>
+        `;
+    }
+
     // Main render function
     renderPanel(panelId, container) {
         switch (panelId) {
@@ -293,6 +303,9 @@ class RenderEngine {
                 break;
             case 'performance':
                 this.renderPerformance(container);
+                break;
+            case 'trades':
+                this.renderTrades(container);
                 break;
             default:
                 container.innerHTML = '<div class="terminal-line">Panel not configured</div>';
@@ -761,25 +774,45 @@ class TradingFeed {
         this.orderBook = { asks: [], bids: [] };
         this.trades = [];
         this.running = false;
+        this.basePrice = 43250.50;
     }
     
     start() {
         this.running = true;
         this.updateOrderBook();
+        this.fetchRealData();
         this.updateTrades();
         this.updateLatency();
+    }
+        
+    // Fetch real trading data from API
+    async fetchRealData() {
+        try {
+            // Try to fetch real Bitcoin price from CoinGecko API
+            const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+            if (response.ok) {
+                const data = await response.json();
+                if (data.bitcoin?.usd) {
+                    this.basePrice = data.bitcoin.usd;
+                    console.log('Real BTC price fetched:', this.basePrice);
+                }
+            }
+        } catch (error) {
+            console.log('Error fetching real data, using simulated data:', error.message);
+        }
+        
+        // Fetch again in 1 minute
+        setTimeout(() => this.fetchRealData(), 60000);
     }
     
     updateOrderBook() {
         if (!this.running) return;
         
-        const basePrice = 43250.50;
-        
         // Generate asks
         this.orderBook.asks = [];
         for (let i = 0; i < 5; i++) {
             this.orderBook.asks.push({
-                price: basePrice + (i * 0.50) + (Math.random() - 0.5) * 0.10,
+                price: this.basePrice + (i * 0.50) + (Math.random() - 0.5) * 0.10,
                 size: (Math.random() * 2 + 0.1).toFixed(4)
             });
         }
@@ -788,7 +821,7 @@ class TradingFeed {
         this.orderBook.bids = [];
         for (let i = 0; i < 5; i++) {
             this.orderBook.bids.push({
-                price: basePrice - ((i + 1) * 0.50) + (Math.random() - 0.5) * 0.10,
+                price: this.basePrice - ((i + 1) * 0.50) + (Math.random() - 0.5) * 0.10,
                 size: (Math.random() * 2 + 0.1).toFixed(4)
             });
         }
@@ -816,7 +849,14 @@ class TradingFeed {
                 </div>
             `).join('');
         }
-        
+      
+        // Update spread
+        const spreadEl = document.querySelector('.orderbook-spread');
+        if (spreadEl && this.orderBook.asks.length > 0 && this.orderBook.bids.length > 0) {
+            const spread = (this.orderBook.asks[0].price - this.orderBook.bids[0].price).toFixed(2);
+            spreadEl.textContent = spread;
+        }
+
         setTimeout(() => this.updateOrderBook(), 500);
     }
     
@@ -826,7 +866,7 @@ class TradingFeed {
         const now = new Date();
         const timeStr = now.toTimeString().split(' ')[0];
         const side = Math.random() > 0.5 ? 'BUY' : 'SELL';
-        const price = (43250 + (Math.random() - 0.5) * 10).toFixed(2);
+        const price = (this.basePrice + (Math.random() - 0.5) * 10).toFixed(2);
         const size = (Math.random() * 0.5 + 0.05).toFixed(4);
         
         this.trades.unshift({ time: timeStr, side, price, size });
@@ -981,6 +1021,8 @@ class Terminal {
         this.registerCommand('status', () => this.status());
         this.registerCommand('system', () => this.system());
         this.registerCommand('mobile', () => this.mobile());
+        this.registerCommand('trading', () => this.trading());
+        this.registerCommand('profile', () => this.profile());
         
         // Register custom commands from data
         const customCommands = this.data.terminal?.customCommands || {};
@@ -1022,7 +1064,9 @@ class Terminal {
   close <panel>     Close a panel
   status            System status
   system            System information
-  mobile            Mobile status`
+  mobile            Mobile status
+  trading           Trading information
+  profile           Personal profile`
         };
     }
     
@@ -1083,6 +1127,28 @@ ${info.map(i => `  ${i}`).join('\n')}`
   Screen Width: ${window.innerWidth}px
   Mobile: ${isMobile ? 'Yes' : 'No'}
   Touch: ${touch ? 'Yes' : 'No'}`
+        };
+    }
+        
+    trading() {
+        const symbol = this.data.trading?.symbol || 'BTC-PERP';
+        return {
+            type: 'output',
+            text: `Trading Information:
+  Symbol: ${symbol}
+  Strategies: ${this.data.trading?.strategies?.length || 0}
+  Endpoints: ${this.data.trading?.latencyEndpoints?.length || 0}`
+        };
+    }
+    
+    profile() {
+        const profile = this.data.profile || {};
+        return {
+            type: 'output',
+            text: `Personal Profile:
+  Name: ${profile.name || 'N/A'}
+  Title: ${profile.title || 'N/A'}
+  Availability: ${profile.availability || 'N/A'}`
         };
     }
 }

@@ -375,6 +375,17 @@ body {
     line-height: 1.5;
 }
 
+
+.profile-info .availability {
+    font-size: 10px;
+    color: var(--accent-neutral);
+    background: rgba(255, 170, 0, 0.1);
+    padding: 4px 8px;
+    border-radius: 2px;
+    margin-top: 8px;
+    display: inline-block;
+}
+
 .profile-section {
     margin-top: var(--space-lg);
     padding-top: var(--space-lg);
